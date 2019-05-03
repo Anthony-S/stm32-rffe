@@ -4,7 +4,7 @@ This code bit-bangs communication using STM32 HAL timers and GPIO to emulate the
 
 Note that I didn't have access to the official RFFE spec document -- I simply inferred as much as I could from the skyworks datasheet, so be wary that changes to the library might be needed depending on the chip you are communicating with. Basic usage is as follows:
 
-```
+```c
 #include "rffe.h"
 #include "SKY13492_rffe.h"
 
