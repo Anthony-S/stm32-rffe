@@ -132,7 +132,7 @@ void RFFE_SendRecvBitBuffer(uint8_t *buff, uint8_t buff_len, uint8_t rx_start_ix
         }
     }
     HAL_GPIO_WritePin(rffe.port, rffe.sck, GPIO_PIN_RESET);
-    HAL_Delay(3); // Give the slave a few seconds to get out of write mode...
+    HAL_Delay(3); // Give the slave a few milliseconds to get out of write mode...
     SetPinOutput(rffe.port, rffe.sda);
     HAL_GPIO_WritePin(rffe.port, rffe.sda, GPIO_PIN_RESET);
 
@@ -144,7 +144,7 @@ void RFFE_SendRecvBitBuffer(uint8_t *buff, uint8_t buff_len, uint8_t rx_start_ix
 void RFFE_WriteByte(uint8_t addr, uint8_t data) {
 
     // Set up the buffer to transmit
-    uint8_t addrWithParity = addr << 1 | GetEvenParity(addr); // Expected this to be odd!
+    uint8_t addrWithParity = addr << 1 | GetOddParity(addr);
     uint16_t dataWithParity = ((uint16_t)data) << 1 | GetOddParity(data);
 
     uint8_t dataPlusParityLength = 9;
