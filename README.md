@@ -12,6 +12,9 @@ Note that I didn't have access to the official RFFE spec document -- I simply in
 #define RFFE_GPIO_CLK_ENABLE() __GPIOX_CLK_ENABLE()
 #define RFFE_SCK_PIN GPIO_PIN_XX
 #define RFFE_SDA_PIN GPIO_PIN_XX
+#define RFFE_PRESCALER XXX
+#define RFFE_PERIOD XXX
+#define RFFE_CLK_DIV TIM_CLOCKDIVISION_DIVX
 
 int main(void)
 {
@@ -22,6 +25,7 @@ int main(void)
 
     RFFE_GPIO_CLK_ENABLE();
     RFFE_Init(SKY13492_SLAVE_ADDR, RFFE_GPIO_PORT, RFFE_SCK_PIN, RFFE_SDA_PIN);
+    RFFE_SetSpeed(RFFE_PRESCALER, RFFE_PERIOD, RFFE_CLK_DIV);
     
     while (1) 
     {
@@ -42,4 +46,4 @@ int main(void)
 ```
 
 ## Also note...
-I expected the parity bits in RFFE to always be odd, from what I could Google. For some strange reason, the read function required an even parity bit on the register address, otherwise the SKY13942 wouldn't respond. Not sure if this is expected in RFFE or if skyworks have a bug in their implementation, so you may need to change this for other devices. Note that all other parity bits are odd in the write functions (and even on the data that comes back from the SKY13942), so they should be as per spec.
+I expected the parity bits in RFFE to always be odd, from what I could Google. For some strange reason, the read function required an even parity bit on the register address, otherwise the SKY13942 wouldn't respond. Not sure if this is expected in RFFE or if skyworks have a bug in their implementation, so you may need to change this for other devices. Note that all other parity bits are odd in the write functions (and also on the data that comes back from the SKY13942), so they should be as per spec.
